@@ -1,0 +1,14 @@
+
+
+### Установка на локальной джанго на локальной машине
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install Django==6.0
+django-admin startproject base .
+
+### Автоформатирование
+pip install autopep8
+
+### Запуск локального сервера
+python manage.py runserver
+

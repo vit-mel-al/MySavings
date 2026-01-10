@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pylint.d/
+
+# Virtual Environment
+venv/
+env/
+/bin/
+/include/
+/lib/
+.env
+.venv
+
+# Django-specific files
+*.log
+*.pot
+local_settings.py  # Contains local secrets and configurations
+db.sqlite3  # Default SQLite database file
+/media/  # User-uploaded media files (can be large, often handled by a deployment service)
+/static/ # Collected static files (usually generated during deployment)
+
+# IDE-specific files and OS files
+.idea/  # PyCharm-specific files
+.vscode/ # VS Code-specific files
+*.sublime-workspace
+*.sublime-project
+.DS_Store  # macOS operating system files
+Thumbs.db  # Windows operating system files
+
+# Project metadata and packaging
+Pipfile.lock
+poetry.lock

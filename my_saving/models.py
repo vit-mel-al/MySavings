@@ -7,7 +7,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Статьи
 class Expense(models.Model):
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
+    description = models.CharField(max_length=255, null=True, blank=True,)
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
@@ -22,13 +22,13 @@ class Expense(models.Model):
     )
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    deleted_at = models.DateTimeField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
 # Категории
 class Category(models.Model):
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
+    description = models.CharField(max_length=255, null=True, blank=True,)
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
@@ -44,7 +44,7 @@ class Category(models.Model):
     )
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    deleted_at = models.DateTimeField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
 # Счета
@@ -59,7 +59,7 @@ class Account(models.Model):
     sort = models.IntegerField(default=1000)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    deleted_at = models.DateTimeField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
 # Валюты
@@ -69,7 +69,7 @@ class Currencie(models.Model):
     sort = models.IntegerField(default=1000)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    deleted_at = models.DateTimeField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
 # Транзакции
@@ -86,8 +86,8 @@ class Transaction(models.Model):
     }
     currencie = models.ForeignKey(Currencie, null=True, on_delete=models.CASCADE,)
     amount = models.FloatField()
-    description = models.CharField(max_length=255, null=True)
+    description = models.CharField(max_length=255, null=True, blank=True,)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    deleted_at = models.DateTimeField(null=True)
+    deleted_at = models.DateTimeField(null=True, blank=True,)
     

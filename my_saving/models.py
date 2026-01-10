@@ -1,3 +1,93 @@
 from django.db import models
+from django.utils import timezone
+from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 
-# Create your models here.
+
+# Статьи
+class Expense(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,               
+        blank=True,
+    )
+    sort = models.IntegerField(default=1000)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True)
+
+
+# Категории
+class Category(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,               
+        blank=True,
+    )
+    levet = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    sort = models.IntegerField(default=1000)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True)
+
+
+# Счета
+class Account(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    sort = models.IntegerField(default=1000)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True)
+
+
+# Валюты
+class Currencie(models.Model):
+    title = models.CharField(max_length=255)
+    code = models.CharField(max_length=10)
+    sort = models.IntegerField(default=1000)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True)
+
+
+# Транзакции
+class Transaction(models.Model):
+    title = models.CharField(max_length=255)
+    date = models.DateTimeField(default=timezone.now)
+    expense = models.ForeignKey(Expense, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    TYPE = {
+        "income": "Income",
+        "expense": "Expense",
+        "revision": "Revision",
+    }
+    currencie = models.ForeignKey(Currencie, null=True, on_delete=models.CASCADE,)
+    amount = models.FloatField()
+    description = models.CharField(max_length=255, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
+    deleted_at = models.DateTimeField(null=True)
+    

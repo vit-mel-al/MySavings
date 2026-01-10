@@ -17,4 +17,8 @@ pip install autopep8
 python manage.py runserver
 
 #### Миграции
+python manage.py makemigration
 python manage.py migrate
+
+### Создание суперпользователя
+python manage.py createsuperuser

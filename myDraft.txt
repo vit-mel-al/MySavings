@@ -6,9 +6,15 @@ source .venv/bin/activate
 python -m pip install Django==6.0
 django-admin startproject base .
 
+
+### Создаем новое приложение
+python manage.py startapp my_saving
+
 ### Автоформатирование
 pip install autopep8
 
 ### Запуск локального сервера
 python manage.py runserver
 
+#### Миграции
+python manage.py migrate

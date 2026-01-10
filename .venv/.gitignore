@@ -1,0 +1,33 @@
+# Python-specific files
+*.pyc
+__pycache__/
+.env
+venv/
+env/
+# other common virtual environment names
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Django-specific files
+*.log
+*.pot
+local_settings.py
+db.sqlite3
+media/ # often ignored if uploaded files are stored elsewhere in production
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+.idea/ # for PyCharm
+.vscode/ # for VS Code
+*.sublime-project
+*.sublime-workspace
+
+# Testing and coverage
+.coverage
+.tox/
+
+# Compiled static assets (if applicable)
+/static_cdn/ # or whatever you name your collectstatic output directory

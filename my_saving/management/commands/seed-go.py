@@ -101,22 +101,16 @@ class Command(BaseCommand):
       
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        self.stdout.write("Start: {current_time}")
+        self.stdout.write(self.style.WARNING(f"Start: {current_time}"))
 
-        
         init_data_currencies()
-        self.stdout.write(self.style.SUCCESS(f"Init currencies"))
+        self.stdout.write("- Init \"Currencies\" - " + self.style.SUCCESS("Ok"))
 
         init_data_expenses()
-        self.stdout.write(self.style.SUCCESS(f"Init expenses"))
+        self.stdout.write("- Init \"Expenses\" - " + self.style.SUCCESS("Ok"))
 
         init_data_catrgories()
-        self.stdout.write(self.style.SUCCESS(f"Init catrgories"))
-
-
-        
-
-        self.stdout.write("End")
+        self.stdout.write("- Init \"Catrgories\" - " + self.style.SUCCESS("Ok"))
         
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        self.stdout.write(self.style.SUCCESS(f"Current time is: {current_time}"))
+        self.stdout.write(self.style.SUCCESS(f"End: {current_time}"))

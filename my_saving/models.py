@@ -19,6 +19,7 @@ class Expense(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
     )
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
@@ -41,6 +42,7 @@ class Category(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
     )
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
@@ -50,7 +52,7 @@ class Category(models.Model):
 # Счета
 class Account(models.Model):
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True)
+    description = models.CharField(max_length=255, null=True, blank=True,)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -66,6 +68,12 @@ class Account(models.Model):
 class Currencie(models.Model):
     title = models.CharField(max_length=255)
     code = models.CharField(max_length=10)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
     sort = models.IntegerField(default=1000)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)

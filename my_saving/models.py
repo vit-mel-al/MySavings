@@ -79,11 +79,12 @@ class Transaction(models.Model):
     expense = models.ForeignKey(Expense, null=True, on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    TYPE = {
-        "income": "Income",
-        "expense": "Expense",
-        "revision": "Revision",
+    TYPES = {
+        "I": "Income",
+        "E": "Expense",
+        "R": "Revision",
     }
+    type = models.CharField(max_length = 1, choices = TYPES)
     currencie = models.ForeignKey(Currencie, null=True, on_delete=models.CASCADE,)
     amount = models.FloatField()
     description = models.CharField(max_length=255, null=True, blank=True,)

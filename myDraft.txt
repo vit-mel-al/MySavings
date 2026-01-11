@@ -26,7 +26,9 @@ python manage.py makemigrations --empty my_saving --name seed_initial_data
 python manage.py showmigrations my_saving
 python manage.py migrate my_saving zero
 
-
-
 ### Создание суперпользователя
 python manage.py createsuperuser
+
+
+### Первичное наполнение БД
+python manage.py seed-go

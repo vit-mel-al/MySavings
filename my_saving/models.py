@@ -25,6 +25,9 @@ class Expense(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
 
+    def __str__(self):
+        return self.title
+    
 
 # Категории
 class Category(models.Model):
@@ -48,6 +51,9 @@ class Category(models.Model):
     updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
 
+    def __str__(self):
+        return self.title
+
 
 # Счета
 class Account(models.Model):
@@ -62,6 +68,9 @@ class Account(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
+
+    def __str__(self):
+        return self.title
 
 
 # Валюты
@@ -78,6 +87,9 @@ class Currencie(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
+
+    def __str__(self):
+        return self.title
 
 
 # Транзакции
@@ -99,4 +111,7 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
     deleted_at = models.DateTimeField(null=True, blank=True,)
+
+    def __str__(self):
+        return self.title
     

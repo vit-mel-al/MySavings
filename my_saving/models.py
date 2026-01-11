@@ -22,7 +22,7 @@ class Expense(models.Model):
         blank=True,
     )
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
@@ -45,7 +45,7 @@ class Category(models.Model):
         blank=True,
     )
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
@@ -60,7 +60,7 @@ class Account(models.Model):
     )
     sort = models.IntegerField(default=1000)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
 
 
@@ -76,7 +76,7 @@ class Currencie(models.Model):
     )
     sort = models.IntegerField(default=1000)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
     deleted_at = models.DateTimeField(null=True, blank=True,)
 
 

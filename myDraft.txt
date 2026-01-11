@@ -17,8 +17,16 @@ pip install autopep8
 python manage.py runserver
 
 #### Миграции
-python manage.py makemigration
+python manage.py makemigrations
 python manage.py migrate
+
+##### Пустая миграция 
+python manage.py makemigrations --empty my_saving --name seed_initial_data
+
+python manage.py showmigrations my_saving
+python manage.py migrate my_saving zero
+
+
 
 ### Создание суперпользователя
 python manage.py createsuperuser

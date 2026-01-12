@@ -1,7 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime
 from django.contrib.auth import get_user_model
-from django_seed import Seed
+
+
 import environ
 from ...models import Account, Transaction, Currency, Category
 
@@ -27,13 +28,21 @@ class Command(BaseCommand):
         self.stdout.write("- Init \"Categories\" - " + self.style.SUCCESS("Ok"))
 
         if env('APP_ENV') == 'local':
-            self.add_test_superuser(self)
+            self.add_seed_superuser(self)
+            self.add_seed_accounts(self)
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.stdout.write(self.style.SUCCESS(f"End: {current_time}"))
 
     @staticmethod
-    def add_test_superuser(self):
+    def add_seed_accounts(self):
+
+      
+        
+
+
+    @staticmethod
+    def add_seed_superuser(self):
 
         if env('TEST_SUPERUSER_LOGIN'):
             superuser = User.objects.filter(username=env('TEST_SUPERUSER_LOGIN'))

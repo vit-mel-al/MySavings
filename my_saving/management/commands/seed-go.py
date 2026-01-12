@@ -74,7 +74,8 @@ class Command(BaseCommand):
                 title=item['title'],
                 code=item['code'],
                 sort=sort,
-                user=None
+                user=None,
+                is_global=True,
             )
 
     @staticmethod
@@ -106,5 +107,6 @@ class Command(BaseCommand):
                 title=item['title'],
                 description=item['description'],
                 sort=sort,
-                user=None
+                user=None,
+                is_global=True,
             )

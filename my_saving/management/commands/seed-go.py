@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime
 from django.contrib.auth import get_user_model
-
+from faker import Faker
 
 import environ
 from ...models import Account, Transaction, Currency, Category
@@ -14,6 +14,8 @@ environ.Env.read_env()
 
 class Command(BaseCommand):
     help = 'Initial filling of the DB'
+
+    seed_users = 10
 
     def handle(self, *args, **options):
 
@@ -29,17 +31,29 @@ class Command(BaseCommand):
 
         if env('APP_ENV') == 'local':
             self.add_seed_superuser(self)
-            self.add_seed_accounts(self)
+            self.add_seed_users(self)
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.stdout.write(self.style.SUCCESS(f"End: {current_time}"))
 
     @staticmethod
-    def add_seed_accounts(self):
+    def add_seed_users(self):
+        users = User.objects.all()
 
-      
-        
+        cnt_new_users = self.seed_users - users.count()
 
+        fake = Faker()
+
+        for i in range(cnt_new_users):
+            User.objects.create(
+                username=fake.user_name(),
+                first_name=fake.first_name(),
+                last_name=fake.last_name(),
+                email=fake.email(),
+                password=fake.password(),
+                is_staff=False,
+                is_active=True,
+            )
 
     @staticmethod
     def add_seed_superuser(self):

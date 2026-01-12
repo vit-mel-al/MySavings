@@ -4,43 +4,19 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-# Статьи
-class Expense(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True, blank=True,)
-    parent = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,               
-        blank=True,
-    )
-    sort = models.IntegerField(default=1000)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
-    created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
-    deleted_at = models.DateTimeField(null=True, blank=True,)
-
-    def __str__(self):
-        return self.title
-    
-
 # Категории
 class Category(models.Model):
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True, blank=True,)
+    description = models.CharField(max_length=255, null=True, blank=True, )
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
-        null=True,               
+        null=True,
         blank=True,
     )
-    levet = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
-    sort = models.IntegerField(default=1000)
+    level = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    sort = models.IntegerField(default=500)
+    is_global = models.BooleanField(default=False)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
@@ -48,8 +24,8 @@ class Category(models.Model):
         blank=True,
     )
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
-    deleted_at = models.DateTimeField(null=True, blank=True,)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True, )
+    deleted_at = models.DateTimeField(null=True, blank=True, )
 
     def __str__(self):
         return self.title
@@ -58,35 +34,36 @@ class Category(models.Model):
 # Счета
 class Account(models.Model):
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255, null=True, blank=True,)
+    description = models.CharField(max_length=255, null=True, blank=True, )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
     )
-    sort = models.IntegerField(default=1000)
+    sort = models.IntegerField(default=500)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
-    deleted_at = models.DateTimeField(null=True, blank=True,)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True, )
+    deleted_at = models.DateTimeField(null=True, blank=True, )
 
     def __str__(self):
         return self.title
 
 
 # Валюты
-class Currencie(models.Model):
+class Currency(models.Model):
     title = models.CharField(max_length=255)
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=25)
+    is_global = models.BooleanField(default=False)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
-    sort = models.IntegerField(default=1000)
+    sort = models.IntegerField(default=500)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True,)
-    deleted_at = models.DateTimeField(null=True, blank=True,)
+    updated_at = models.DateTimeField(default=timezone.now, null=True, blank=True, )
+    deleted_at = models.DateTimeField(null=True, blank=True, )
 
     def __str__(self):
         return self.title
@@ -96,7 +73,6 @@ class Currencie(models.Model):
 class Transaction(models.Model):
     title = models.CharField(max_length=255)
     date = models.DateTimeField(default=timezone.now)
-    expense = models.ForeignKey(Expense, null=True, on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     TYPES = {
@@ -104,14 +80,13 @@ class Transaction(models.Model):
         "E": "Expense",
         "R": "Revision",
     }
-    type = models.CharField(max_length = 1, choices = TYPES)
-    currencie = models.ForeignKey(Currencie, null=True, on_delete=models.CASCADE,)
+    type = models.CharField(max_length=1, choices=TYPES)
+    currency = models.ForeignKey(Currency, null=True, on_delete=models.CASCADE, )
     amount = models.FloatField()
-    description = models.CharField(max_length=255, null=True, blank=True,)
+    description = models.CharField(max_length=255, null=True, blank=True, )
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    deleted_at = models.DateTimeField(null=True, blank=True,)
+    deleted_at = models.DateTimeField(null=True, blank=True, )
 
     def __str__(self):
         return self.title
-    

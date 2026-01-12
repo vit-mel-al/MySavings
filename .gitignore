@@ -1,3 +1,5 @@
+.idea
+
 # Python-specific files
 *.pyc
 __pycache__/

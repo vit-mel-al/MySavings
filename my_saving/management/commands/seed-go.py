@@ -12,11 +12,14 @@ User = get_user_model()
 env = environ.Env()
 
 
+
+
 class Command(BaseCommand):
     help = 'Initial filling of the DB'
 
     seed_users = 10
     seed_accounts = 25
+    seed_transactions = 1000
 
     def handle(self, *args, **options):
 
@@ -32,14 +35,40 @@ class Command(BaseCommand):
 
         # Seed only in local env
         if env('APP_ENV') == 'local':
-            self.add_seed_superuser(self)
-            self.add_seed_users(self)
-            self.add_seed_accounts(self)
+            self.add_seed_superuser()
+            self.add_seed_users()
+            self.add_seed_accounts()
+            self.add_seed_transactions()
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.stdout.write(self.style.SUCCESS(f"End: {current_time}"))
 
-    @staticmethod
+    def add_seed_transactions(self):
+        all_accounts = Account.objects.all()
+        all_categories = Category.objects.all()
+        all_currencies = Currency.objects.all()
+        all_transactions = Transaction.objects.all()
+        all_types = Transaction.TYPES
+
+        cnt_new_transactions = self.seed_transactions - all_transactions.count()
+
+        fake = Faker()
+
+        for i in range(cnt_new_transactions):
+            Transaction.objects.create(
+                title=fake.text(max_nb_chars=50),
+                date=fake.date_time_between(start_date="-3650d", end_date="now"),
+                amount=round(random.uniform(1000, 100000), 2),
+                type=random.choice(list(all_types)),
+                currency=random.choice(list(all_currencies)),
+                account=random.choice(list(all_accounts)),
+                category=random.choice(list(all_categories)),
+                description=fake.text(max_nb_chars=250),
+            )
+
+        if cnt_new_transactions > 0:
+            self.stdout.write(f"- Init transactions [{cnt_new_transactions}] created - " + self.style.SUCCESS("Ok"))
+
     def add_seed_accounts(self):
         all_users = User.objects.all()
         all_accounts = Account.objects.all()
@@ -54,12 +83,9 @@ class Command(BaseCommand):
                 user=random.choice(list(all_users)),
             )
 
-
         if cnt_new_accounts > 0:
             self.stdout.write(f"- Init accounts [{cnt_new_accounts}] created - " + self.style.SUCCESS("Ok"))
 
-
-    @staticmethod
     def add_seed_users(self):
         all_users = User.objects.all()
 
@@ -81,7 +107,6 @@ class Command(BaseCommand):
         if cnt_new_users > 0:
             self.stdout.write(f"- Init users [{cnt_new_users}] created - " + self.style.SUCCESS("Ok"))
 
-    @staticmethod
     def add_seed_superuser(self):
 
         if env('TEST_SUPERUSER_LOGIN'):
@@ -94,38 +119,6 @@ class Command(BaseCommand):
                 )
                 superuser_new.save()
                 self.stdout.write(f"- Init superuser \"{env('TEST_SUPERUSER_LOGIN')}\" - " + self.style.SUCCESS("Ok"))
-
-    @staticmethod
-    def init_data_currencies():
-        data_items = (
-            {
-                'title': 'Сербский динар',
-                'code': 'RSD',
-            },
-            {
-                'title': 'Доллар США',
-                'code': 'USD',
-            },
-            {
-                'title': 'Евро',
-                'code': 'EUR',
-            },
-            {
-                'title': 'Рубль',
-                'code': 'RUB',
-            },
-        )
-
-        sort = 0
-        for item in data_items:
-            sort += 100
-            Currency.objects.update_or_create(
-                title=item['title'],
-                code=item['code'],
-                sort=sort,
-                user=None,
-                is_global=True,
-            )
 
     @staticmethod
     def init_data_categories():
@@ -155,6 +148,37 @@ class Command(BaseCommand):
             Category.objects.update_or_create(
                 title=item['title'],
                 description=item['description'],
+                sort=sort,
+                user=None,
+                is_global=True,
+            )
+    @staticmethod
+    def init_data_currencies():
+        data_items = (
+            {
+                'title': 'Сербский динар',
+                'code': 'RSD',
+            },
+            {
+                'title': 'Доллар США',
+                'code': 'USD',
+            },
+            {
+                'title': 'Евро',
+                'code': 'EUR',
+            },
+            {
+                'title': 'Рубль',
+                'code': 'RUB',
+            },
+        )
+
+        sort = 0
+        for item in data_items:
+            sort += 100
+            Currency.objects.update_or_create(
+                title=item['title'],
+                code=item['code'],
                 sort=sort,
                 user=None,
                 is_global=True,

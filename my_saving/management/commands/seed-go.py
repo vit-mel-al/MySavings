@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+# from django.conf import settings
 from datetime import datetime
 from django.contrib.auth import get_user_model
 from faker import Faker
@@ -9,7 +10,6 @@ from ...models import Account, Transaction, Currency, Category
 User = get_user_model()
 
 env = environ.Env()
-environ.Env.read_env()
 
 
 class Command(BaseCommand):
@@ -54,6 +54,9 @@ class Command(BaseCommand):
                 is_staff=False,
                 is_active=True,
             )
+
+        if cnt_new_users > 0:
+            self.stdout.write(f"- Init users [{cnt_new_users}] created - " + self.style.SUCCESS("Ok"))
 
     @staticmethod
     def add_seed_superuser(self):

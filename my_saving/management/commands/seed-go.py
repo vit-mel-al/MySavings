@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
-# from django.conf import settings
 from datetime import datetime
 from django.contrib.auth import get_user_model
 from faker import Faker
+import random
 
 import environ
 from ...models import Account, Transaction, Currency, Category
@@ -16,6 +16,7 @@ class Command(BaseCommand):
     help = 'Initial filling of the DB'
 
     seed_users = 10
+    seed_accounts = 25
 
     def handle(self, *args, **options):
 
@@ -29,18 +30,40 @@ class Command(BaseCommand):
         self.init_data_categories()
         self.stdout.write("- Init \"Categories\" - " + self.style.SUCCESS("Ok"))
 
+        # Seed only in local env
         if env('APP_ENV') == 'local':
             self.add_seed_superuser(self)
             self.add_seed_users(self)
+            self.add_seed_accounts(self)
 
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.stdout.write(self.style.SUCCESS(f"End: {current_time}"))
 
     @staticmethod
-    def add_seed_users(self):
-        users = User.objects.all()
+    def add_seed_accounts(self):
+        all_users = User.objects.all()
+        all_accounts = Account.objects.all()
 
-        cnt_new_users = self.seed_users - users.count()
+        fake = Faker()
+
+        cnt_new_accounts = self.seed_accounts - all_accounts.count()
+        for i in range(cnt_new_accounts):
+            Account.objects.create(
+                title=fake.company(),
+                description=fake.text(max_nb_chars=250),
+                user=random.choice(list(all_users)),
+            )
+
+
+        if cnt_new_accounts > 0:
+            self.stdout.write(f"- Init accounts [{cnt_new_accounts}] created - " + self.style.SUCCESS("Ok"))
+
+
+    @staticmethod
+    def add_seed_users(self):
+        all_users = User.objects.all()
+
+        cnt_new_users = self.seed_users - all_users.count()
 
         fake = Faker()
 

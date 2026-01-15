@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-direction="ltr" dir="ltr"
+      data-pc-theme="light">
+<head>
+    {% load static %}
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="description"
+            content="Datta Able is trending dashboard template made using Bootstrap 5 design framework. Datta Able is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."
+    />
+    <meta
+            name="keywords"
+            content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"
+    />
+    <meta name="author" content="CodedThemes"/>
+
+    <link rel="icon" href="{% static 'assets/images/favicon.svg' %}" type="image/x-icon"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/phosphor/duotone/style.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'assets/fonts/tabler-icons.min.css' %}"/>
+
+    <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" id="main-style-link"/>
+
+</head>
+
+<body>
+<div class="loader-bg fixed inset-0 bg-white dark:bg-themedark-cardbg z-[1034]">
+    <div class="loader-track h-[5px] w-full inline-block absolute overflow-hidden top-0">
+        <div class="loader-fill w-[300px] h-[5px] bg-primary-500 absolute top-0 left-0 animate-[hitZak_0.6s_ease-in-out_infinite_alternate]"></div>
+    </div>
+</div>
+
+<nav class="pc-sidebar">
+    {% include "nav_left.html" %}
+</nav>
+<header class="pc-header">
+    {% include "nav_top.html" %}
+</header>
+
+<div class="pc-container">
+    <div class="pc-content">
+
+        <div class="page-header">
+            <div class="page-block">
+                <div class="page-header-title">
+                    <h5 class="mb-0 font-medium">{% block title_page %}{% endblock %}</h5>
+                </div>
+                {% include "bread_crumbs.html" %}
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+
+    </div>
+</div>
+
+<footer class="pc-footer">
+    <div class="footer-wrapper container-fluid mx-10">
+        <div class="grid grid-cols-12 gap-1.5">
+            <div class="col-span-12 sm:col-span-6 my-1">
+                <p class="m-0">
+                    <a href="javascript:void(0)"
+                       class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500"
+                    >About</a> |
+                    <a href="javascript:void(0)"
+                       class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500"
+                    >Our partners</a>
+                </p>
+            </div>
+            <div class="col-span-12 sm:col-span-6 my-1 justify-self-end">
+                <p class="inline-block max-sm:mr-3 sm:ml-2">Distributed by <a href="mailto:support@gmail.com">support@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]"></div>
+
+<script src="{% static 'assets/js/plugins/simplebar.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/icon/custom-icon.js' %}"></script>
+<script src="{% static 'assets/js/plugins/feather.min.js' %}"></script>
+<script src="{% static 'assets/js/component.js' %}"></script>
+<script src="{% static 'assets/js/theme.js' %}"></script>
+<script src="{% static 'assets/js/script.js' %}"></script>
+<script>
+    layout_change('false');
+    layout_theme_sidebar_change('dark');
+    change_box_container('false');
+    layout_caption_change('true');
+    layout_rtl_change('false');
+    preset_change('preset-1');
+    main_layout_change('vertical');
+</script>
+</body>
+</html>

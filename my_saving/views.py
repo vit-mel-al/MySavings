@@ -3,4 +3,4 @@ from django.http import HttpResponse
 from .models import Account
 def index(request):
     accounts = Account.objects.all()
-    return render(request, 'dashboard.html', {'accounts': accounts})
+    return render(request, 'my_saving/dashboard.html', {'accounts': accounts})

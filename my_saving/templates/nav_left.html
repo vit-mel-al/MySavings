@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <div class="navbar-wrapper">
     <div class="m-header flex items-center py-4 px-6 h-header-height">
         <a href="{% url 'dashboard' %}" class="b-brand flex items-center gap-3">
@@ -8,37 +10,41 @@
     </div>
     <div class="navbar-content h-[calc(100vh_-_74px)] py-2.5">
         <ul class="pc-navbar">
-            <li class="pc-item pc-caption">
-                <label>My savings</label>
-            </li>
-            <li class="pc-item">
-            <li class="pc-item">
-                <a href="{% url 'dashboard' %}" class="pc-link">
-                    <span class="pc-micon"><i data-feather="home"></i></span>
-                    <span class="pc-mtext">Dashboard</span>
-                </a>
-            </li>
-            <li class="pc-item pc-hasmenu">
-                <a href="{% url 'operations' %}" class="pc-link">
-                    <span class="pc-micon"><i data-feather="layers"></i></span>
-                    <span class="pc-mtext">My operations</span>
-                </a>
-            </li>
-            <li class="pc-item pc-caption">
-                <label>Directories</label>
-            </li>
-            <li class="pc-item pc-hasmenu">
-                <a href="{% url 'accounts' %}" class="pc-link">
-                    <span class="pc-micon"><i data-feather="folder"></i></span>
-                    <span class="pc-mtext">Accounts</span>
-                </a>
-            </li>
-            <li class="pc-item pc-hasmenu">
-                <a href="{% url 'categories' %}" class="pc-link">
-                    <span class="pc-micon"><i data-feather="folder"></i></span>
-                    <span class="pc-mtext">Categories</span>
-                </a>
-            </li>
+
+
+            {% if user.is_authenticated %}
+                <li class="pc-item pc-caption">
+                    <label>My savings</label>
+                </li>
+                <li class="pc-item">
+                <li class="pc-item">
+                    <a href="{% url 'dashboard' %}" class="pc-link">
+                        <span class="pc-micon"><i data-feather="home"></i></span>
+                        <span class="pc-mtext">Dashboard</span>
+                    </a>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="{% url 'operations' %}" class="pc-link">
+                        <span class="pc-micon"><i data-feather="layers"></i></span>
+                        <span class="pc-mtext">My operations</span>
+                    </a>
+                </li>
+                <li class="pc-item pc-caption">
+                    <label>Directories</label>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="{% url 'accounts' %}" class="pc-link">
+                        <span class="pc-micon"><i data-feather="folder"></i></span>
+                        <span class="pc-mtext">Accounts</span>
+                    </a>
+                </li>
+                <li class="pc-item pc-hasmenu">
+                    <a href="{% url 'categories' %}" class="pc-link">
+                        <span class="pc-micon"><i data-feather="folder"></i></span>
+                        <span class="pc-mtext">Categories</span>
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </div>

@@ -5,7 +5,7 @@
 {% block content %}
     <form method="POST" autocomplete="off">
         {% csrf_token %}
-        {{ loginform.as_p }}
+        {{ login_form }}
         <input type="submit" value="Login"/>
     </form>
 {% endblock %}

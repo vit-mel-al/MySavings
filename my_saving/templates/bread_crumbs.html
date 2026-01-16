@@ -1,6 +1,10 @@
+<ul class="breadcrumb">
+    {% for url, name in breadcrumbs %}
+        {% if forloop.last %}
+            <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+        {% else %}
+            <li class="breadcrumb-item"><a href="{{ url }}">{{ name }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
 
-    <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="javascript: void(0)">My savings</a></li>
-        <li class="breadcrumb-item" aria-current="page">Dashboard</li>
-    </ul>
